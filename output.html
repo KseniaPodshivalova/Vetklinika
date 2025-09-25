@@ -1,0 +1,77 @@
+{% include 'header.html' %}
+<main class="report-container">
+    <div class="report-card">
+        <h1>Список пациентов</h1>
+        
+        <div class="empty-state">
+            <div class="empty-icon">
+                <i class="fas fa-file-medical"></i>
+            </div>
+            <h2>Пациенты не найдены</h2>
+            <p>В базе данных нет пациентов.</p>
+            <p>Вы можете добавить нового пациента через систему управления.</p>
+            
+            <div class="empty-actions">
+                {% if session.get('role') == 'admin' or session.get('role') == 'owner' %}
+                <a href="{{ url_for('add_pac') }}" class="btn">
+                    <i class="fas fa-plus"></i> Добавить пациента
+                </a>
+                {% endif %}
+                <a href="{{ url_for('message') }}" class="btn btn-outline">
+                    <i class="fas fa-arrow-left"></i> Вернуться назад
+                </a>
+            </div>
+        </div>
+    </div>
+</main>
+<style>
+    .report-container {
+        display: flex;
+        justify-content: center;
+        padding: 40px 20px;
+        min-height: 60vh;
+    }
+    
+    .report-card {
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 10px 35px rgba(0,0,0,0.08);
+        padding: 50px;
+        max-width: 800px;
+        width: 100%;
+        text-align: center;
+    }
+    
+    .empty-state {
+        padding: 30px 0;
+    }
+    
+    .empty-icon {
+        font-size: 80px;
+        color: #4361ee;
+        margin-bottom: 30px;
+        opacity: 0.3;
+    }
+    
+    .empty-state h2 {
+        color: #2b2d42;
+        margin-top: 0;
+        margin-bottom: 15px;
+    }
+    
+    .empty-state p {
+        color: #666;
+        font-size: 18px;
+        max-width: 500px;
+        margin: 0 auto 25px;
+        line-height: 1.6;
+    }
+    
+    .empty-actions {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        margin-top: 30px;
+    }
+</style>
+{%include 'footer.html'%}

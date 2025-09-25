@@ -1,0 +1,57 @@
+{% include 'header.html' %}
+<main class="error-container">
+    <div class="error-card">
+        <div class="error-icon">
+            <i class="fas fa-exclamation-triangle"></i>
+        </div>
+        <h1>Ошибка доступа</h1>
+        <p>{{ error_message }}</p>
+        <div class="error-actions">
+            <a href="{{ url_for('index') }}" class="btn">Войти в систему</a>
+            <a href="{{ url_for('reg') }}" class="btn btn-outline">Зарегистрироваться</a>
+        </div>
+    </div>
+</main>
+<style>
+    .error-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: calc(100vh - 200px);
+        padding: 30px 20px;
+    }
+
+    .error-card {
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 10px 35px rgba(0,0,0,0.1);
+        padding: 50px;
+        max-width: 600px;
+        width: 100%;
+        text-align: center;
+    }
+
+    .error-icon {
+        font-size: 80px;
+        color: #f44336;
+        margin-bottom: 30px;
+    }
+
+    .error-card h1 {
+        margin: 0 0 20px;
+        color: #2b2d42;
+    }
+
+    .error-card p {
+        margin-bottom: 30px;
+        font-size: 18px;
+        color: #555;
+    }
+
+    .error-actions {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+    }
+</style>
+{%include 'footer.html'%}

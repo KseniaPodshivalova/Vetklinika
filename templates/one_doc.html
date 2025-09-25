@@ -1,0 +1,147 @@
+{%include 'header.html'%}
+<main class="doctor-detail">
+    <div class="doctor-card">
+        <div class="doctor-header">
+            <h1>Доктор {{ doc['FIO'] }}</h1>
+            <p class="specialty">{{ doc['specialnost'] }}</p>
+        </div>
+
+        <div class="doctor-body">
+            <div class="doctor-photo">
+                {% if doc['photo'] %}
+                    <img src="data:image/jpeg;base64,{{ doc['photo'] | b64d }}" alt="Doctor Photo">
+                {% else %}
+                    <div class="photo-placeholder">
+                        <i class="fas fa-user-md"></i>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="doctor-info">
+                <div class="info-item">
+                    <i class="fas fa-briefcase"></i>
+                    <div>
+                        <h3>Стаж работы</h3>
+                        <p>{{ doc['stage'] }} лет</p>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <i class="fas fa-graduation-cap"></i>
+                    <div>
+                        <h3>Специальность</h3>
+                        <p>{{ doc['specialnost'] }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="doctor-footer">
+            <a href="{{ url_for('doc') }}" class="btn">
+                <i class="fas fa-arrow-left"></i> Назад к списку врачей
+            </a>
+        </div>
+    </div>
+</main>
+<style>
+    .doctor-detail {
+        display: flex;
+        justify-content: center;
+        padding: 40px 20px;
+    }
+
+    .doctor-card {
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 10px 35px rgba(0,0,0,0.08);
+        padding: 40px;
+        max-width: 800px;
+        width: 100%;
+    }
+
+    .doctor-header {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .doctor-header h1 {
+        margin: 0;
+        color: #2b2d42;
+    }
+
+    .specialty {
+        font-size: 1.3rem;
+        color: #4361ee;
+        font-weight: 600;
+        margin-top: 10px;
+    }
+
+    .doctor-body {
+        display: flex;
+        gap: 40px;
+        margin: 40px 0;
+    }
+
+    .doctor-photo {
+        flex: 1;
+    }
+
+    .doctor-photo img {
+        width: 100%;
+        border-radius: 15px;
+        aspect-ratio: 1/1;
+        object-fit: cover;
+    }
+
+    .photo-placeholder {
+        width: 100%;
+        aspect-ratio: 1/1;
+        background: #f0f5ff;
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 100px;
+        color: #4361ee;
+    }
+
+    .doctor-info {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+    }
+
+    .info-item {
+        display: flex;
+        gap: 20px;
+        align-items: center;
+        padding: 25px;
+        background: #f9f9ff;
+        border-radius: 15px;
+    }
+
+    .info-item i {
+        font-size: 2rem;
+        color: #4361ee;
+        min-width: 50px;
+        text-align: center;
+    }
+
+    .info-item h3 {
+        margin: 0 0 10px;
+        color: #444;
+    }
+
+    .info-item p {
+        margin: 0;
+        font-size: 1.1rem;
+    }
+
+    .doctor-footer {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
+</style>
+{%include 'footer.html'%}

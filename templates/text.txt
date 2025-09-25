@@ -1,0 +1,6 @@
+Амбулаторная карта №_____
+
+Владелец ФИО: {{animal['FIO hoz']}}
+Адрес: {{animal['adres']}}
+Телефон: {{animal['telephone']}}
+Животное вид: {{animal['vid']}} Кличка: {{animal['name']}} Возраст {{animal['age']}} лет

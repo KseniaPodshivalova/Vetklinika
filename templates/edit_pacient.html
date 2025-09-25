@@ -1,0 +1,84 @@
+{%include 'header.html'%}
+<main class="edit-container">
+    <div class="edit-card">
+        <h1>Редактирование пациента</h1>
+
+        <form method="POST">
+            <div class="form-group">
+                <label>Вид животного:</label>
+                <input type="text" name="vid" value="{{ pacient.vid }}" required>
+            </div>
+
+            <div class="form-group">
+                <label>Дата рождения:</label>
+                <input type="date" name="date" value="{{ pacient.data_rozd }}" required>
+            </div>
+
+            <div class="form-group">
+                <label>Адрес:</label>
+                <input type="text" name="adr" value="{{ pacient.adress }}">
+            </div>
+
+            <div class="form-group">
+                <label>Телефон:</label>
+                <input type="tel" name="tel" value="{{ pacient.telephone }}">
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn">Сохранить изменения</button>
+                <a href="{{ url_for('message') }}" class="btn btn-outline">Отмена</a>
+            </div>
+        </form>
+    </div>
+</main>
+<style>
+    .edit-container {
+        display: flex;
+        justify-content: center;
+        padding: 40px 20px;
+    }
+
+    .edit-card {
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 10px 35px rgba(0,0,0,0.08);
+        padding: 40px;
+        max-width: 600px;
+        width: 100%;
+    }
+
+    .edit-card h1 {
+        margin-top: 0;
+        text-align: center;
+        color: #2b2d42;
+        margin-bottom: 30px;
+    }
+
+    .form-group {
+        margin-bottom: 25px;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: #444;
+    }
+
+    .form-group input {
+        width: 100%;
+        padding: 14px;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        font-size: 16px;
+        box-sizing: border-box;
+    }
+
+    .form-actions {
+        display: flex;
+        gap: 15px;
+        margin-top: 30px;
+    }
+</style>
+</body>
+</html>

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Регистрация</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+{% include 'header.html' %}
+<main class="auth-container">
+    <div class="auth-card">
+        <h1>Регистрация</h1>
+
+        <form action="/reg" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="name">Имя пользователя:</label>
+                <input type="text" id="name" name="name" required>
+                <i class="fas fa-user"></i>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Пароль:</label>
+                <input type="password" id="password" name="password" required>
+                <i class="fas fa-lock"></i>
+            </div>
+
+            <div class="form-group">
+                <label for="role">Роль:</label>
+                <select id="role" name="role" required>
+                    <option value="owner">Хозяин</option>
+                    <option value="doctor">Врач</option>
+                    <option value="admin">Администратор</option>
+                </select>
+                <i class="fas fa-user-tag"></i>
+            </div>
+
+            <div class="form-group">
+                <label for="avatar">Аватар:</label>
+                <div class="file-input">
+                    <input type="file" id="avatar" name="avatar" accept="image/*">
+                    <label for="avatar" class="file-label">
+                        <i class="fas fa-cloud-upload-alt"></i> Выберите файл
+                    </label>
+                </div>
+            </div>
+
+            <button type="submit" class="btn">Зарегистрироваться</button>
+
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <div class="flash-messages">
+                        {% for message in messages %}
+                            <p class="flash-error">{{ message }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+        </form>
+
+        <div class="auth-footer">
+            Уже зарегистрированы? <a href="/">Войти в систему</a>
+        </div>
+    </div>
+</main>
+<style>
+    .auth-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: calc(100vh - 200px);
+        padding: 30px 20px;
+    }
+
+    .auth-card {
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 10px 35px rgba(0,0,0,0.1);
+        padding: 40px;
+        max-width: 500px;
+        width: 100%;
+    }
+
+    .auth-card h1 {
+        text-align: center;
+        margin-top: 0;
+        color: #2b2d42;
+    }
+
+    .form-group {
+        margin-bottom: 25px;
+        position: relative;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: #444;
+    }
+
+    .form-group input,
+    .form-group select {
+        width: 100%;
+        padding: 14px 14px 14px 40px;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        font-size: 16px;
+        box-sizing: border-box;
+    }
+
+    .form-group i {
+        position: absolute;
+        left: 15px;
+        bottom: 15px;
+        color: #777;
+    }
+
+    .file-input {
+        position: relative;
+    }
+
+    .file-input input[type="file"] {
+        display: none;
+    }
+
+    .file-label {
+        display: block;
+        padding: 14px;
+        background: #f0f5ff;
+        border: 1px dashed #4361ee;
+        border-radius: 10px;
+        text-align: center;
+        cursor: pointer;
+        color: #4361ee;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+
+    .file-label:hover {
+        background: #e4edff;
+    }
+
+    .flash-messages {
+        margin: 20px 0;
+    }
+
+    .flash-error {
+        background: #ffebee;
+        color: #f44336;
+        padding: 12px;
+        border-radius: 8px;
+        text-align: center;
+        margin: 10px 0;
+    }
+
+    .auth-footer {
+        text-align: center;
+        margin-top: 25px;
+        color: #666;
+    }
+
+    .auth-footer a {
+        color: #4361ee;
+        text-decoration: none;
+        font-weight: 500;
+    }
+
+    .auth-footer a:hover {
+        text-decoration: underline;
+    }
+</style>
+</body>
+</html>

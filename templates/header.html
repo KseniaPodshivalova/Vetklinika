@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{title}}</title>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+  <!-- Подключаем Font Awesome для иконок -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-color: #4361ee;
+      --secondary-color: #3f37c9;
+      --accent-color: #4895ef;
+      --text-color: #2b2d42;
+      --background: rgba(255, 255, 255, 0.95);
+      --blur: blur(12px);
+      --shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+    }
+
+     body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    .content-wrapper {
+      flex: 1;
+    }
+
+    /* Центрированная шапка */
+    header {
+      background: var(--background);
+      backdrop-filter: var(--blur);
+      -webkit-backdrop-filter: var(--blur);
+      padding: 15px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      box-shadow: var(--shadow);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      text-align: center;
+    }
+
+    .header-container {
+      width: 100%;
+      max-width: 1200px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 20px;
+      box-sizing: border-box;
+    }
+
+    .logo {
+      font-size: 2.2rem;
+      font-weight: 800;
+      background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    .logo::before {
+      content: "🐾";
+      font-size: 1.8rem;
+    }
+
+    nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      max-width: 800px;
+    }
+
+    nav li {
+      margin: 5px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--text-color);
+      font-weight: 600;
+      padding: 10px 20px;
+      border-radius: 50px;
+      transition: all 0.3s ease;
+      display: block;
+      background: rgba(67, 97, 238, 0.08);
+      font-size: 1.05rem;
+    }
+
+    nav a:hover {
+      background: rgba(67, 97, 238, 0.15);
+      color: var(--primary-color);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(67, 97, 238, 0.15);
+    }
+
+    /* Активное состояние */
+    nav a.active {
+      background: rgba(67, 97, 238, 0.2);
+      color: var(--primary-color);
+      font-weight: 700;
+      position: relative;
+    }
+
+    nav a.active::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 6px;
+      height: 6px;
+      background: var(--accent-color);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--accent-color);
+    }
+
+    /* Анимация для активного пункта меню */
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+      100% { transform: translateY(0); }
+    }
+
+    nav a.active {
+      animation: float 3s ease-in-out infinite;
+    }
+
+    /* Кнопки пользователя */
+    .user-actions {
+      margin-top: 15px;
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    .btn {
+      padding: 8px 25px;
+      border-radius: 50px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: none;
+      background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+      color: white;
+      font-size: 0.95rem;
+      box-shadow: 0 4px 15px rgba(67, 97, 238, 0.25);
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 7px 20px rgba(67, 97, 238, 0.4);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 2px solid var(--primary-color);
+      color: var(--primary-color);
+      box-shadow: none;
+    }
+
+    .btn-outline:hover {
+      background: rgba(67, 97, 238, 0.05);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <div class="logo">VetCare</div>
+
+      <nav>
+        <ul>
+          {% if session.get('role') != 'doctor' %}
+            {% for link_text, link_endpoint in nav_links.items() %}
+              <li>
+                <a href="{{ url_for(link_endpoint) }}"
+                   {% if request.endpoint == link_endpoint %}class="active"{% endif %}>
+                  {{ link_text }}
+                </a>
+              </li>
+            {% endfor %}
+          {% else %}
+            <li>
+              <a href="/message" {% if request.path =='/message' %}class="active"{% endif %}>
+                Ваши пациенты
+              </a>
+            </li>
+            <li>
+              <a href="/prof" {% if request.path =='/prof' %}class="active"{% endif %}>
+                Профиль
+              </a>
+            </li>
+          {% endif %}
+        </ul>
+      </nav>
+
+      <div class="user-actions">
+        {% if session.logged_in %}
+          <a href="{{ url_for('logout') }}" class="btn">
+            <i class="fas fa-sign-out-alt"></i> Выйти
+          </a>
+        {% else %}
+          <a href="{{ url_for('index') }}" class="btn">
+            <i class="fas fa-sign-in-alt"></i> Войти
+          </a>
+          <a href="{{ url_for('reg') }}" class="btn btn-outline">
+            <i class="fas fa-user-plus"></i> Регистрация
+          </a>
+        {% endif %}
+      </div>
+    </div>
+  </header>
+
+  <!-- Основное содержимое страницы -->
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- Скрипт для подсветки активной ссылки -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const navLinks = document.querySelectorAll('nav a');
+      const currentPath = window.location.pathname;
+
+      navLinks.forEach(link => {
+        const linkPath = new URL(link.href).pathname;
+
+        // Для врачей сравниваем пути напрямую
+        if (linkPath === currentPath) {
+          link.classList.add('active');
+        }
+
+        // Для главной страницы (может быть несколько вариантов)
+        if (currentPath === '/' && linkPath === "{{ url_for('message') }}") {
+          link.classList.add('active');
+        }
+      });
+    });
+  </script>
+</body>
+</html>

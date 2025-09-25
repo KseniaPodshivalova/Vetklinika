@@ -1,0 +1,257 @@
+{% include 'header.html' %}
+<div class="content-wrapper">
+<main class="profile-container">
+    <div class="profile-card">
+        <h1>Профиль пользователя</h1>
+
+        <div class="avatar-container">
+            {% if avatar %}
+                <img src="data:image/jpeg;base64,{{ avatar }}" alt="avatar" class="avatar">
+            {% else %}
+                <div class="avatar-placeholder">
+                    <i class="fas fa-user-circle"></i>
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="profile-info">
+            <h2>{{ name }}</h2>
+            <div class="role-badge">
+                {% if session.role == 'admin' %}
+                    Администратор
+                {% elif session.role == 'doctor' %}
+                    Врач
+                {% else %}
+                    Хозяин животного
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="section">
+            <h3>Контактная информация</h3>
+            <div class="info-grid">
+                <div class="info-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>{{ email or 'Не указан' }}</span>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-phone"></i>
+                    <span>{{ telephone or 'Не указан' }}</span>
+                </div>
+                {% if session.get('role') != 'doctor' and session.get('role') != 'admin'%}
+                <div class="info-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>{{ address or 'Не указан' }}</span>
+                </div>
+                {% endif %}
+                <div class="info-item">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>
+                        {% if session.get('role') == 'doctor' %}
+                            Дата устройства: {{ birth or 'Не указана' }}
+                        {% else %}
+                            Дата рождения: {{ birth or 'Не указана' }}
+                        {% endif %}
+                    </span>
+                </div>
+            </div>
+
+            <div class="actions">
+                {% if session.get('role') == 'doctor' %}
+                    <a href="{{ url_for('edit_prof_doc') }}" class="btn">Редактировать профиль</a>
+                {% else %}
+                    <a href="{{ url_for('edit_profile') }}" class="btn">Редактировать профиль</a>
+                {% endif %}
+                <a href="{{ url_for('logout') }}" class="btn btn-outline">Выйти</a>
+            </div>
+        </div>
+
+        {% if session.role == 'owner' %}
+        <div class="section">
+            <h3>Мой питомец</h3>
+            {% if pet %}
+                <div class="pet-card">
+                    {% if pet.photo %}
+                        <img src="data:image/jpeg;base64,{{ pet.photo }}" alt="pet photo" class="pet-avatar">
+                    {% else %}
+                        <div class="pet-placeholder">
+                            <i class="fas fa-paw"></i>
+                        </div>
+                    {% endif %}
+                    <div class="pet-info">
+                        <h4>{{ pet.name }}</h4>
+                        <p><strong>Вид:</strong> {{ pet.vid }}</p>
+                        <p><strong>Дата рождения:</strong> {{ pet.data_rozd }}</p>
+                        <p><strong>Адрес:</strong> {{ pet.adress }}</p>
+                        <p><strong>Телефон:</strong> {{ pet.telephone }}</p>
+                    </div>
+                </div>
+            {% else %}
+                <div class="no-pet">
+                    <p>У вас нет зарегистрированных питомцев</p>
+                    <a href="{{ url_for('add_pac') }}" class="btn">Добавить питомца</a>
+                </div>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+</main>
+</div>
+<style>
+    .profile-container {
+        display: flex;
+        justify-content: center;
+        padding: 30px 20px;
+    }
+
+    .profile-card {
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+        padding: 40px;
+        max-width: 700px;
+        width: 100%;
+    }
+
+    .avatar-container {
+        display: flex;
+        justify-content: center;
+        margin: 20px 0;
+    }
+
+    .avatar {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 5px solid #f0f5ff;
+    }
+
+    .avatar-placeholder {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        background: #f0f5ff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 80px;
+        color: #4361ee;
+    }
+
+    .profile-info {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .profile-info h2 {
+        margin: 10px 0;
+        color: #2b2d42;
+    }
+
+    .role-badge {
+        display: inline-block;
+        padding: 5px 15px;
+        background: rgba(67, 97, 238, 0.1);
+        color: #4361ee;
+        border-radius: 20px;
+        font-weight: 600;
+        font-size: 14px;
+    }
+
+    .section {
+        margin-top: 30px;
+        padding-top: 30px;
+        border-top: 1px solid #f0f0f0;
+    }
+
+    .section h3 {
+        margin-top: 0;
+        color: #444;
+        font-size: 1.3rem;
+    }
+
+    .info-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 15px;
+        margin: 25px 0;
+    }
+
+    .info-item {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        font-size: 1.1rem;
+    }
+
+    .info-item i {
+        width: 30px;
+        height: 30px;
+        background: #f0f5ff;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #4361ee;
+    }
+
+    .actions {
+        display: flex;
+        gap: 15px;
+        margin-top: 25px;
+    }
+
+    .pet-card {
+        display: flex;
+        gap: 25px;
+        align-items: center;
+        background: #f9f9ff;
+        border-radius: 15px;
+        padding: 20px;
+        margin-top: 20px;
+    }
+
+    .pet-avatar {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid #f0f0f0;
+    }
+
+    .pet-placeholder {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        background: #f0f5ff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 50px;
+        color: #4361ee;
+    }
+
+    .pet-info h4 {
+        margin-top: 0;
+        color: #4361ee;
+    }
+
+    .pet-info p {
+        margin: 8px 0;
+    }
+
+    .no-pet {
+        text-align: center;
+        padding: 30px;
+        background: #f9f9ff;
+        border-radius: 15px;
+        margin-top: 20px;
+    }
+
+    .no-pet p {
+        margin-bottom: 20px;
+    }
+</style>
+</body>
+</html>

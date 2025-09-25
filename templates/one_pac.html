@@ -1,0 +1,163 @@
+{%include 'header.html'%}
+<main class="patient-detail">
+    <div class="patient-card">
+        <div class="patient-header">
+            <h1>{{ patient['name'] }}</h1>
+            <p class="type">{{ patient['vid'] }}</p>
+        </div>
+
+        <div class="patient-body">
+            <div class="patient-photo">
+                {% if patient['photo'] %}
+                    <img src="data:image/jpeg;base64,{{ patient['photo'] }}" alt="Фото пациента">
+                {% else %}
+                    <div class="photo-placeholder">
+                        <i class="fas fa-paw"></i>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="patient-info">
+                <div class="info-item">
+                    <i class="fas fa-birthday-cake"></i>
+                    <div>
+                        <h3>Дата рождения</h3>
+                        <p>{{ patient['data_rozd'] }}</p>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <i class="fas fa-user"></i>
+                    <div>
+                        <h3>Хозяин</h3>
+                        <p>ID: {{ patient['id_us'] }}</p>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <div>
+                        <h3>Адрес</h3>
+                        <p>{{ patient['adress'] }}</p>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <i class="fas fa-phone"></i>
+                    <div>
+                        <h3>Телефон</h3>
+                        <p>{{ patient['telephone'] }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="patient-footer">
+            <a href="{{ url_for('message') }}" class="btn">
+                <i class="fas fa-arrow-left"></i> Назад к списку пациентов
+            </a>
+        </div>
+    </div>
+</main>
+<style>
+    .patient-detail {
+        display: flex;
+        justify-content: center;
+        padding: 40px 20px;
+    }
+
+    .patient-card {
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 10px 35px rgba(0,0,0,0.08);
+        padding: 40px;
+        max-width: 800px;
+        width: 100%;
+    }
+
+    .patient-header {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .patient-header h1 {
+        margin: 0;
+        color: #2b2d42;
+    }
+
+    .type {
+        font-size: 1.3rem;
+        color: #4361ee;
+        font-weight: 600;
+        margin-top: 10px;
+    }
+
+    .patient-body {
+        display: flex;
+        gap: 40px;
+        margin: 40px 0;
+    }
+
+    .patient-photo {
+        flex: 1;
+    }
+
+    .patient-photo img {
+        width: 100%;
+        border-radius: 15px;
+        aspect-ratio: 1/1;
+        object-fit: cover;
+    }
+
+    .photo-placeholder {
+        width: 100%;
+        aspect-ratio: 1/1;
+        background: #f0f5ff;
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 100px;
+        color: #4361ee;
+    }
+
+    .patient-info {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+    }
+
+    .info-item {
+        display: flex;
+        gap: 20px;
+        align-items: center;
+        padding: 25px;
+        background: #f9f9ff;
+        border-radius: 15px;
+    }
+
+    .info-item i {
+        font-size: 2rem;
+        color: #4361ee;
+        min-width: 50px;
+        text-align: center;
+    }
+
+    .info-item h3 {
+        margin: 0 0 10px;
+        color: #444;
+    }
+
+    .info-item p {
+        margin: 0;
+        font-size: 1.1rem;
+    }
+
+    .patient-footer {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
+</style>
+{%include 'footer.html'%}

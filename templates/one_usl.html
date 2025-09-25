@@ -1,0 +1,114 @@
+{%include 'header.html'%}
+<main class="service-detail">
+    <div class="service-card">
+        <div class="service-header">
+            <h1>{{ usl['title'] }}</h1>
+            <p class="price">{{ usl['price'] }} руб.</p>
+        </div>
+
+        <div class="service-description">
+            <div class="info-card">
+                <i class="fas fa-info-circle"></i>
+                <h3>Описание услуги</h3>
+                <p>Детальное описание услуги будет доступно в ближайшее время. Наши специалисты работают над наполнением информации.</p>
+            </div>
+
+            <div class="info-card">
+                <i class="fas fa-clock"></i>
+                <h3>Длительность процедуры</h3>
+                <p>Средняя продолжительность: 30-60 минут</p>
+            </div>
+
+            <div class="info-card">
+                <i class="fas fa-user-md"></i>
+                <h3>Специалисты</h3>
+                <p>Услугу предоставляют все наши врачи</p>
+            </div>
+        </div>
+
+        <div class="service-footer">
+            <a href="{{ url_for('usl') }}" class="btn">
+                <i class="fas fa-arrow-left"></i> Назад к списку услуг
+            </a>
+        </div>
+    </div>
+</main>
+<style>
+    .service-detail {
+        display: flex;
+        justify-content: center;
+        padding: 40px 20px;
+    }
+
+    .service-card {
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 10px 35px rgba(0,0,0,0.08);
+        padding: 40px;
+        max-width: 800px;
+        width: 100%;
+    }
+
+    .service-header {
+        text-align: center;
+        margin-bottom: 40px;
+        padding-bottom: 30px;
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+    .service-header h1 {
+        margin: 0;
+        color: #2b2d42;
+        font-size: 2.2rem;
+    }
+
+    .price {
+        font-size: 1.8rem;
+        color: #4CAF50;
+        font-weight: 700;
+        margin-top: 15px;
+    }
+
+    .service-description {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 25px;
+    }
+
+    .info-card {
+        background: #f9f9ff;
+        border-radius: 15px;
+        padding: 25px;
+        transition: all 0.3s ease;
+    }
+
+    .info-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    }
+
+    .info-card i {
+        font-size: 2.5rem;
+        color: #4361ee;
+        margin-bottom: 20px;
+    }
+
+    .info-card h3 {
+        margin: 0 0 15px;
+        color: #444;
+    }
+
+    .info-card p {
+        margin: 0;
+        line-height: 1.6;
+    }
+
+    .service-footer {
+        display: flex;
+        justify-content: center;
+        margin-top: 40px;
+        padding-top: 30px;
+        border-top: 1px solid #f0f0f0;
+    }
+</style>
+{%include 'footer.html'%}

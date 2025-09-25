@@ -1,0 +1,211 @@
+{% include 'header.html' %}
+<main class="report-container">
+    <div class="report-card">
+        <h1>Отчет по пациентам</h1>
+        
+        <div class="report-section">
+            <h2>Список пациентов</h2>
+            <ul class="styled-list">
+                <li>КОЛЯ ПОТАПОВ - 3 года - ПЕТУХ</li>
+                <li>сенька - 6 лет - чертосвин</li>
+                <li>ваня - 12 лет - пес</li>
+                <li>егор - 4 года - чертосвин</li>
+                <li>слава - 6 лет - псинка</li>
+                <li>Денис - 6 лет - лев</li>
+            </ul>
+        </div>
+        
+        <div class="report-section">
+            <h2>Пациенты по видам животных</h2>
+            <div class="animal-groups">
+                <div class="animal-group">
+                    <h3><i class="fas fa-dove"></i> ПЕТУХ</h3>
+                    <ul class="styled-list">
+                        <li>КОЛЯ ПОТАПОВ - 3 года</li>
+                    </ul>
+                </div>
+                
+                <div class="animal-group">
+                    <h3><i class="fas fa-pig"></i> чертосвин</h3>
+                    <ul class="styled-list">
+                        <li>сенька - 6 лет</li>
+                        <li>егор - 4 года</li>
+                    </ul>
+                </div>
+                
+                <div class="animal-group">
+                    <h3><i class="fas fa-dog"></i> пес</h3>
+                    <ul class="styled-list">
+                        <li>ваня - 12 лет</li>
+                    </ul>
+                </div>
+                
+                <div class="animal-group">
+                    <h3><i class="fas fa-paw"></i> псинка</h3>
+                    <ul class="styled-list">
+                        <li>слава - 6 лет</li>
+                    </ul>
+                </div>
+                
+                <div class="animal-group">
+                    <h3><i class="fas fa-crown"></i> лев</h3>
+                    <ul class="styled-list">
+                        <li>Денис - 6 лет</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="report-section">
+            <h2>Пациенты 2-5 лет</h2>
+            <ul class="styled-list">
+                <li>КОЛЯ ПОТАПОВ - ПЕТУХ</li>
+                <li>егор - чертосвин</li>
+            </ul>
+        </div>
+        
+        <div class="report-section">
+            <h2>Возрастные рекорды</h2>
+            <div class="age-records">
+                <div class="record-card">
+                    <i class="fas fa-baby"></i>
+                    <h3>Самое молодое животное</h3>
+                    <p>КОЛЯ ПОТАПОВ - ПЕТУХ</p>
+                    <div class="age-badge">3 года</div>
+                </div>
+                
+                <div class="record-card">
+                    <i class="fas fa-user-clock"></i>
+                    <h3>Самое старое животное</h3>
+                    <p>ваня - пес</p>
+                    <div class="age-badge">12 лет</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<style>
+    .report-container {
+        display: flex;
+        justify-content: center;
+        padding: 40px 20px;
+    }
+    
+    .report-card {
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 10px 35px rgba(0,0,0,0.08);
+        padding: 40px;
+        max-width: 1000px;
+        width: 100%;
+    }
+    
+    .report-card h1 {
+        text-align: center;
+        margin-top: 0;
+        color: #2b2d42;
+        margin-bottom: 40px;
+    }
+    
+    .report-section {
+        margin-bottom: 50px;
+        padding-bottom: 30px;
+        border-bottom: 1px solid #f0f0f0;
+    }
+    
+    .report-section:last-child {
+        margin-bottom: 0;
+        padding-bottom: 0;
+        border-bottom: none;
+    }
+    
+    .report-section h2 {
+        color: #4361ee;
+        margin-top: 0;
+        padding-bottom: 15px;
+        border-bottom: 2px solid #f0f0f0;
+    }
+    
+    .styled-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    
+    .styled-list li {
+        padding: 15px 20px;
+        background: #f9f9ff;
+        border-radius: 10px;
+        margin-bottom: 10px;
+        font-size: 1.1rem;
+        border-left: 4px solid #4361ee;
+    }
+    
+    .animal-groups {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 25px;
+    }
+    
+    .animal-group {
+        background: #f9f9ff;
+        border-radius: 15px;
+        padding: 20px;
+    }
+    
+    .animal-group h3 {
+        margin-top: 0;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: #444;
+    }
+    
+    .animal-group i {
+        color: #4361ee;
+    }
+    
+    .age-records {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+    }
+    
+    .record-card {
+        background: white;
+        border-radius: 15px;
+        padding: 30px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        text-align: center;
+        position: relative;
+    }
+    
+    .record-card i {
+        font-size: 50px;
+        color: #4361ee;
+        margin-bottom: 20px;
+    }
+    
+    .record-card h3 {
+        margin: 0 0 15px;
+        color: #2b2d42;
+    }
+    
+    .record-card p {
+        margin: 0;
+        font-size: 1.2rem;
+        font-weight: 600;
+    }
+    
+    .age-badge {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background: #4361ee;
+        color: white;
+        padding: 8px 15px;
+        border-radius: 20px;
+        font-weight: 600;
+    }
+</style>
+{%include 'footer.html'%}

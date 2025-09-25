@@ -1,0 +1,144 @@
+{%include 'header.html'%}
+<main class="container">
+    {% if session.get('role') != 'owner' and session.get('role') != 'doctor'%}
+    <div class="form-container">
+        <h2>Добавить нового врача</h2>
+        <form method="POST" action="/add_doctor" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="fio">ФИО:</label>
+                <input type="text" id="fio" name="fio" required>
+            </div>
+            <div class="form-group">
+                <label for="stage">Стаж:</label>
+                <input type="number" id="stage" name="stage" required>
+            </div>
+            <div class="form-group">
+                <label for="specialnost">Специальность:</label>
+                <input type="text" id="specialnost" name="specialnost" required>
+            </div>
+            <div class="form-group">
+                <label for="photo">Фото:</label>
+                <input type="file" id="photo" name="photo" accept="image/*">
+            </div>
+            <button type="submit" class="btn">Добавить врача</button>
+        </form>
+    </div>
+    {%endif%}
+
+    <h1 class="section-title">Наши врачи</h1>
+    <div class="cards-container">
+        {% for i in doc %}
+        <div class="card">
+            <a href="doc/{{i['id_vr']}}">
+                <div class="card-content">
+                    <h3>{{i['FIO']}}</h3>
+                    <p class="specialty">{{i['specialnost']}}</p>
+                    <p>Стаж: {{i['stage']}} лет</p>
+                </div>
+            </a>
+            {% if session.role == 'admin' %}
+            <div class="card-controls">
+                <a href="/edit_doctor/{{ i['id_vr'] }}" class="btn btn-edit">Редактировать</a>
+                <form action="/delete_doctor/{{ i['id_vr'] }}" method="POST">
+                    <button type="submit" class="btn btn-delete">Удалить</button>
+                </form>
+            </div>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+</main>
+<style>
+    .container {
+        max-width: 1200px;
+        margin: 30px auto;
+        padding: 0 20px;
+    }
+
+    .section-title {
+        text-align: center;
+        margin: 40px 0 30px;
+        color: #2b2d42;
+        font-size: 2rem;
+    }
+
+    .form-container {
+        background: white;
+        border-radius: 15px;
+        padding: 25px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        max-width: 600px;
+        margin: 30px auto;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: #444;
+    }
+
+    .form-group input {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        font-size: 16px;
+        box-sizing: border-box;
+    }
+
+    .cards-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 25px;
+        margin-top: 20px;
+    }
+
+    .card {
+        background: white;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        transition: all 0.3s ease;
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    }
+
+    .card-content {
+        padding: 20px;
+    }
+
+    .card h3 {
+        margin: 0 0 10px;
+        color: #4361ee;
+    }
+
+    .specialty {
+        font-weight: 600;
+        color: #3f37c9;
+        margin: 5px 0 10px;
+    }
+
+    .card-controls {
+        display: flex;
+        gap: 10px;
+        padding: 15px 20px;
+        border-top: 1px solid #f0f0f0;
+    }
+
+    .btn-edit {
+        background: #4CAF50;
+    }
+
+    .btn-delete {
+        background: #f44336;
+    }
+</style>
+{%include 'footer.html'%}
